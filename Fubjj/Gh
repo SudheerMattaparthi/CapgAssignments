@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Course List</h2>
+
+  <div class="search-box">
+    <input type="text" [(ngModel)]="searchTerms.category" (input)="filterTable()" placeholder="Search by Category">
+    <input type="text" [(ngModel)]="searchTerms.cost" (input)="filterTable()" placeholder="Search by Cost">
+    <input type="text" [(ngModel)]="searchTerms.level" (input)="filterTable()" placeholder="Search by Level">
+    <input type="text" [(ngModel)]="searchTerms.language" (input)="filterTable()" placeholder="Search by Language">
+    <input type="text" [(ngModel)]="searchTerms.rating" (input)="filterTable()" placeholder="Search by Rating">
+  </div>
+
+  <table class="custom-table">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Category</th>
+        <th>Duration</th>
+        <th>Level</th>
+        <th>Language</th>
+        <th>Cost</th>
+        <th>Rating</th>
+        <th>isEnrolled</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of filteredCourses">
+        <td>{{ course.courseName }}</td>
+        <td>{{ course.category }}</td>
+        <td>{{ course.duration }}</td>
+        <td>{{ course.level }}</td>
+        <td>{{ course.language }}</td>
+        <td>{{ course.cost }}</td>
+        <td>{{ course.rating }}</td>
+        <td>
+          <button *ngIf="!isEnrolled(course.courseName)" (click)="toggleEnrollment(course.courseName)">Enroll</button>
+          <span *ngIf="isEnrolled(course.courseName)">Enrolled</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="user-list-container">
+  <h2 class="user-list-title">Users enrolled courses</h2>
+  <ul class="user-list">
+    <li *ngFor="let user of allUsersCourse" class="user-item">
+      <strong class="user-name-label">Name:</strong> {{ user.name }}<br>
+      <strong class="user-courses-label">Courses:</strong>
+      <ul class="course-list">
+        <li *ngFor="let course of user.course">{{ course }}</li>
+      </ul>
+    </li>
+  </ul>
+</div>
